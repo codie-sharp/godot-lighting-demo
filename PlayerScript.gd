@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var move_speed: float = 5.0
+@export var move_speed: float = 5
 @export var mouse_sensitivity: float = 0.2
 @export var spotlight_angle: float = 45.0
 @export var spotlight_power: float = 5.0
