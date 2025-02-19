@@ -1,0 +1,192 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwl4yrfkmjea1"]
+
+[ext_resource type="Script" path="res://UIScript.gd" id="1_nemw3"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nemw3")
+
+[node name="LanternVBox" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 509.0
+offset_right = 807.0
+offset_bottom = 1080.0
+
+[node name="LanternLabel" type="Label" parent="LanternVBox"]
+layout_mode = 2
+text = "Lantern"
+horizontal_alignment = 1
+
+[node name="AngleTextLabel" type="Label" parent="LanternVBox"]
+layout_mode = 2
+text = "Angle"
+
+[node name="AngleSlider" type="HSlider" parent="LanternVBox"]
+layout_mode = 2
+min_value = 5.0
+max_value = 180.0
+step = 5.0
+value = 5.0
+
+[node name="AngleValueLabel" type="Label" parent="LanternVBox"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="AngleAttenuationTextLabel" type="Label" parent="LanternVBox"]
+layout_mode = 2
+text = "Angle Attenuation"
+
+[node name="AngleAttenuationSlider" type="HSlider" parent="LanternVBox"]
+layout_mode = 2
+min_value = 0.1
+max_value = 2.0
+step = 0.1
+value = 1.0
+
+[node name="AngleAttenuationValueLabel" type="Label" parent="LanternVBox"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="RangeTextLabel" type="Label" parent="LanternVBox"]
+layout_mode = 2
+text = "Range"
+
+[node name="RangeSlider" type="HSlider" parent="LanternVBox"]
+layout_mode = 2
+max_value = 50.0
+value = 5.0
+
+[node name="RangeValueLabel" type="Label" parent="LanternVBox"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="RangeAttenuationTextLabel" type="Label" parent="LanternVBox"]
+layout_mode = 2
+text = "Range Attenuation"
+
+[node name="RangeAttenuationSlider" type="HSlider" parent="LanternVBox"]
+layout_mode = 2
+min_value = 0.1
+max_value = 2.0
+step = 0.1
+value = 1.0
+
+[node name="RangeAttenuationValueLabel" type="Label" parent="LanternVBox"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="BrightnessLabel" type="Label" parent="LanternVBox"]
+layout_mode = 2
+text = "Brightness"
+
+[node name="BrightnessSlider" type="HSlider" parent="LanternVBox"]
+layout_mode = 2
+max_value = 20.0
+step = 0.1
+
+[node name="BrightnessValueLabel" type="Label" parent="LanternVBox"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="ColorLabel" type="Label" parent="LanternVBox"]
+layout_mode = 2
+text = "Color"
+
+[node name="ColorPicker" type="ColorPicker" parent="LanternVBox"]
+layout_mode = 2
+can_add_swatches = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="AmbientLightVBox" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 811.0
+offset_right = 1109.0
+offset_bottom = 1080.0
+
+[node name="AmbientLightLabel" type="Label" parent="AmbientLightVBox"]
+layout_mode = 2
+text = "Ambient Light"
+horizontal_alignment = 1
+
+[node name="BrightnessLabel" type="Label" parent="AmbientLightVBox"]
+layout_mode = 2
+text = "Brightness
+"
+
+[node name="BrightnessSlider" type="HSlider" parent="AmbientLightVBox"]
+layout_mode = 2
+max_value = 10.0
+step = 0.1
+
+[node name="BrightnessValueLabel" type="Label" parent="AmbientLightVBox"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="ColorLabel" type="Label" parent="AmbientLightVBox"]
+layout_mode = 2
+text = "Color"
+
+[node name="ColorPicker" type="ColorPicker" parent="AmbientLightVBox"]
+layout_mode = 2
+can_add_swatches = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="FogVBox" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 1113.0
+offset_right = 1411.0
+offset_bottom = 1080.0
+
+[node name="FogLabel" type="Label" parent="FogVBox"]
+layout_mode = 2
+text = "Fog"
+horizontal_alignment = 1
+
+[node name="BrightnessLabel" type="Label" parent="FogVBox"]
+layout_mode = 2
+text = "Brightness
+"
+
+[node name="BrightnessSlider" type="HSlider" parent="FogVBox"]
+layout_mode = 2
+max_value = 10.0
+step = 0.1
+
+[node name="BrightnessValueLabel" type="Label" parent="FogVBox"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="DensityLabel" type="Label" parent="FogVBox"]
+layout_mode = 2
+text = "Density"
+
+[node name="DensitySlider" type="HSlider" parent="FogVBox"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="DensityValueLabel" type="Label" parent="FogVBox"]
+layout_mode = 2
+
+[node name="ColorLabel" type="Label" parent="FogVBox"]
+layout_mode = 2
+text = "Color"
+
+[node name="ColorPicker" type="ColorPicker" parent="FogVBox"]
+layout_mode = 2
+can_add_swatches = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false

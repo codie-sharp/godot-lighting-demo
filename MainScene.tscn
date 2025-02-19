@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cje83spb506kb"]
+
+[ext_resource type="PackedScene" uid="uid://bto07lmavgi5i" path="res://EnvironmentScene.tscn" id="1_6x4k5"]
+[ext_resource type="PackedScene" uid="uid://cfcr8bwdx3nu2" path="res://PlayerScene.tscn" id="2_d35aq"]
+[ext_resource type="PackedScene" uid="uid://dwl4yrfkmjea1" path="res://UIScene.tscn" id="3_8yfgu"]
+
+[sub_resource type="Environment" id="Environment_dm26k"]
+background_energy_multiplier = 0.0
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.0
+reflected_light_source = 1
+fog_enabled = true
+fog_light_energy = 0.1
+fog_density = 0.0
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dm26k")
+
+[node name="Player" parent="." instance=ExtResource("2_d35aq")]
+
+[node name="Control" parent="." instance=ExtResource("3_8yfgu")]
+
+[node name="StaticBody3D" parent="." instance=ExtResource("1_6x4k5")]

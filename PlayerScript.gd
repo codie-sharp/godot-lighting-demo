@@ -2,17 +2,12 @@ extends CharacterBody3D
 
 @export var move_speed: float = 5
 @export var mouse_sensitivity: float = 0.2
-@export var spotlight_angle: float = 45.0
-@export var spotlight_power: float = 5.0
-@export var spotlight_color: Color = Color.WHITE
-@export var ambient_light_power: float = 0.1
-@export var fog_density: float = 0.02
 
 @onready var camera = $Camera3D
 @onready var lantern = $SpotLight3D
 @onready var ui = $"../Control"
 
-var mouse_captured: bool = true # Switch between game and UI
+var mouse_captured: bool = true
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -48,6 +43,8 @@ func _process(delta):
 		direction += transform.basis.x
 
 	velocity = direction.normalized() * move_speed
+	apply_floor_snap()
 	move_and_slide()
+	print(is_on_floor())
 
 	lantern.global_transform = camera.global_transform

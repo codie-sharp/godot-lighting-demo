@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfcr8bwdx3nu2"]
+
+[ext_resource type="Script" path="res://PlayerScript.gd" id="1_ontiu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ojelw"]
+radius = 0.2
+height = 1.0
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_ontiu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_ojelw")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+light_energy = 2.0
+spot_range = 50.0
+spot_angle_attenuation = 2.0

@@ -1,149 +1,72 @@
-[gd_scene load_steps=6 format=3 uid="uid://bto07lmavgi5i"]
+[gd_scene load_steps=8 format=3 uid="uid://bto07lmavgi5i"]
 
-[ext_resource type="Script" path="res://PlayerScript.gd" id="1_x5u20"]
-[ext_resource type="Script" path="res://ControlScript.gd" id="2_32qlx"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_x2f7h"]
+size = Vector3(25, 1, 25)
 
-[sub_resource type="BoxMesh" id="BoxMesh_pkr82"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_bh04u"]
+size = Vector2(25, 25)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_d4t58"]
 flip_faces = true
-size = Vector3(25, 10, 25)
+size = Vector2(25, 25)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f8v17"]
-radius = 0.2
-height = 1.0
+[sub_resource type="BoxShape3D" id="BoxShape3D_cdnkr"]
+size = Vector3(1, 10, 25)
 
-[sub_resource type="Environment" id="Environment_upia7"]
+[sub_resource type="BoxMesh" id="BoxMesh_i0hgh"]
+size = Vector3(1, 10, 25)
 
-[node name="Main" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_lpclt"]
+size = Vector3(25, 10, 1)
 
-[node name="Geometry" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+[sub_resource type="BoxMesh" id="BoxMesh_6qcmk"]
+size = Vector3(25, 10, 1)
+
+[node name="Environment" type="StaticBody3D"]
+
+[node name="FloorCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_x2f7h")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="FloorCollision"]
 cast_shadow = 0
-mesh = SubResource("BoxMesh_pkr82")
+mesh = SubResource("PlaneMesh_bh04u")
+skeleton = NodePath("../..")
 
-[node name="Player" type="CharacterBody3D" parent="."]
-script = ExtResource("1_x5u20")
+[node name="CeilingCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+shape = SubResource("BoxShape3D_x2f7h")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_f8v17")
+[node name="CeilingMesh" type="MeshInstance3D" parent="CeilingCollision"]
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_d4t58")
+skeleton = NodePath("../..")
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="WestWallCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 5, 0)
+shape = SubResource("BoxShape3D_cdnkr")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-spot_range = 10.0
-spot_attenuation = 1.5
-spot_angle_attenuation = 1.5
+[node name="WallMesh" type="MeshInstance3D" parent="WestWallCollision"]
+mesh = SubResource("BoxMesh_i0hgh")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("2_32qlx")
+[node name="EastWallCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 5, 0)
+shape = SubResource("BoxShape3D_cdnkr")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="WallMesh" type="MeshInstance3D" parent="EastWallCollision"]
+mesh = SubResource("BoxMesh_i0hgh")
 
-[node name="LanternVBox" type="VBoxContainer" parent="Control/HBoxContainer"]
-layout_mode = 2
+[node name="NorthWallCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -12.5)
+shape = SubResource("BoxShape3D_lpclt")
 
-[node name="LanternLabel" type="Label" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-text = "Lantern Settings"
-horizontal_alignment = 1
+[node name="WallMesh" type="MeshInstance3D" parent="NorthWallCollision"]
+mesh = SubResource("BoxMesh_6qcmk")
+skeleton = NodePath("../..")
 
-[node name="AngleTextLabel" type="Label" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-text = "Angle"
+[node name="SouthWallCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 12.5)
+shape = SubResource("BoxShape3D_lpclt")
 
-[node name="AngleSlider" type="HSlider" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-min_value = 5.0
-max_value = 180.0
-step = 5.0
-value = 5.0
-
-[node name="AngleValueLabel" type="Label" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="AngleAttenuationTextLabel" type="Label" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-text = "Angle Attenuation"
-
-[node name="AngleAttenuationSlider" type="HSlider" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-min_value = 0.1
-max_value = 2.0
-step = 0.1
-value = 1.0
-
-[node name="AngleAttenuationValueLabel" type="Label" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="RangeTextLabel" type="Label" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-text = "Range"
-
-[node name="RangeSlider" type="HSlider" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-max_value = 50.0
-value = 5.0
-
-[node name="RangeValueLabel" type="Label" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="RangeAttenuationTextLabel" type="Label" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-text = "Range Attenuation"
-
-[node name="RangeAttenuationSlider" type="HSlider" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-min_value = 0.1
-max_value = 2.0
-step = 0.1
-value = 1.0
-
-[node name="RangeAttenuationValueLabel" type="Label" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="BrightnessLabel" type="Label" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-text = "Brightness"
-
-[node name="BrightnessSlider" type="HSlider" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-max_value = 20.0
-step = 0.1
-
-[node name="BrightnessValueLabel" type="Label" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-edit_alpha = false
-
-[node name="ColorPicker" type="ColorPicker" parent="Control/HBoxContainer/LanternVBox"]
-layout_mode = 2
-
-[node name="AmbientVBox" type="VBoxContainer" parent="Control/HBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="BrightnessSlider" type="HSlider" parent="Control/HBoxContainer/AmbientVBox"]
-layout_mode = 2
-
-[node name="ColorPicker" type="ColorPicker" parent="Control/HBoxContainer/AmbientVBox"]
-layout_mode = 2
-
-[node name="FogDensitySlider" type="HSlider" parent="Control/HBoxContainer/AmbientVBox"]
-layout_mode = 2
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_upia7")
+[node name="WallMesh" type="MeshInstance3D" parent="SouthWallCollision"]
+mesh = SubResource("BoxMesh_6qcmk")
+skeleton = NodePath("../..")
