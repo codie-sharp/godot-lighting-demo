@@ -1,14 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://bto07lmavgi5i"]
+[gd_scene load_steps=20 format=3 uid="uid://bto07lmavgi5i"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x2f7h"]
-size = Vector3(25, 1, 25)
+size = Vector3(50, 1, 25)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_bh04u"]
-size = Vector2(25, 25)
+size = Vector2(50, 25)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_d4t58"]
 flip_faces = true
-size = Vector2(25, 25)
+size = Vector2(50, 25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cdnkr"]
 size = Vector3(1, 10, 25)
@@ -17,56 +17,250 @@ size = Vector3(1, 10, 25)
 size = Vector3(1, 10, 25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lpclt"]
-size = Vector3(25, 10, 1)
+size = Vector3(50, 10, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_6qcmk"]
-size = Vector3(25, 10, 1)
+size = Vector3(50, 10, 1)
 
-[node name="Environment" type="StaticBody3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_sa0r4"]
+size = Vector3(35, 10, 1)
 
-[node name="FloorCollision" type="CollisionShape3D" parent="."]
+[sub_resource type="BoxMesh" id="BoxMesh_splf8"]
+size = Vector3(35, 10, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pgxbk"]
+size = Vector3(5, 5, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_10k5l"]
+size = Vector3(5, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xcvxo"]
+size = Vector3(20, 4, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hyp1d"]
+size = Vector3(20, 4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gumqg"]
+size = Vector3(10, 0.1, 3.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_b1nu2"]
+size = Vector3(10, 0.1, 3.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pflx7"]
+size = Vector3(1, 6.5, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kc44v"]
+size = Vector3(1, 6.5, 5)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qat26"]
+height = 10.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8gujp"]
+height = 10.0
+radial_segments = 8
+rings = 1
+
+[node name="Environment" type="Node3D"]
+
+[node name="OuterWalls" type="StaticBody3D" parent="."]
+
+[node name="FloorCollision" type="CollisionShape3D" parent="OuterWalls"]
 shape = SubResource("BoxShape3D_x2f7h")
 
-[node name="FloorMesh" type="MeshInstance3D" parent="FloorCollision"]
+[node name="FloorMesh" type="MeshInstance3D" parent="OuterWalls/FloorCollision"]
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_bh04u")
 skeleton = NodePath("../..")
 
-[node name="CeilingCollision" type="CollisionShape3D" parent="."]
+[node name="CeilingCollision" type="CollisionShape3D" parent="OuterWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 shape = SubResource("BoxShape3D_x2f7h")
 
-[node name="CeilingMesh" type="MeshInstance3D" parent="CeilingCollision"]
+[node name="CeilingMesh" type="MeshInstance3D" parent="OuterWalls/CeilingCollision"]
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_d4t58")
 skeleton = NodePath("../..")
 
-[node name="WestWallCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 5, 0)
+[node name="WestWallCollision" type="CollisionShape3D" parent="OuterWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 5, 0)
 shape = SubResource("BoxShape3D_cdnkr")
 
-[node name="WallMesh" type="MeshInstance3D" parent="WestWallCollision"]
+[node name="WallMesh" type="MeshInstance3D" parent="OuterWalls/WestWallCollision"]
 mesh = SubResource("BoxMesh_i0hgh")
 
-[node name="EastWallCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 5, 0)
+[node name="EastWallCollision" type="CollisionShape3D" parent="OuterWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 5, 0)
 shape = SubResource("BoxShape3D_cdnkr")
 
-[node name="WallMesh" type="MeshInstance3D" parent="EastWallCollision"]
+[node name="WallMesh" type="MeshInstance3D" parent="OuterWalls/EastWallCollision"]
 mesh = SubResource("BoxMesh_i0hgh")
 
-[node name="NorthWallCollision" type="CollisionShape3D" parent="."]
+[node name="NorthWallCollision" type="CollisionShape3D" parent="OuterWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -12.5)
 shape = SubResource("BoxShape3D_lpclt")
 
-[node name="WallMesh" type="MeshInstance3D" parent="NorthWallCollision"]
+[node name="WallMesh" type="MeshInstance3D" parent="OuterWalls/NorthWallCollision"]
 mesh = SubResource("BoxMesh_6qcmk")
 skeleton = NodePath("../..")
 
-[node name="SouthWallCollision" type="CollisionShape3D" parent="."]
+[node name="SouthWallCollision" type="CollisionShape3D" parent="OuterWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 12.5)
 shape = SubResource("BoxShape3D_lpclt")
 
-[node name="WallMesh" type="MeshInstance3D" parent="SouthWallCollision"]
+[node name="WallMesh" type="MeshInstance3D" parent="OuterWalls/SouthWallCollision"]
 mesh = SubResource("BoxMesh_6qcmk")
 skeleton = NodePath("../..")
+
+[node name="InnerWalls" type="StaticBody3D" parent="."]
+
+[node name="WestWallCSG" type="CSGBox3D" parent="InnerWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 5, 0)
+calculate_tangents = false
+use_collision = true
+size = Vector3(1, 10, 9)
+
+[node name="DoorCSG" type="CSGCylinder3D" parent="InnerWalls/WestWallCSG"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, -3, 0)
+operation = 2
+radius = 3.0
+height = 1.0
+smooth_faces = false
+
+[node name="EastWallCSG" type="CSGBox3D" parent="InnerWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 5, 0)
+calculate_tangents = false
+use_collision = true
+size = Vector3(1, 10, 9)
+
+[node name="DoorCSG" type="CSGCylinder3D" parent="InnerWalls/EastWallCSG"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, -3, 0)
+operation = 2
+radius = 3.0
+height = 1.0
+smooth_faces = false
+
+[node name="NorthWallCollision" type="CollisionShape3D" parent="InnerWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5)
+shape = SubResource("BoxShape3D_sa0r4")
+
+[node name="WallMesh" type="MeshInstance3D" parent="InnerWalls/NorthWallCollision"]
+mesh = SubResource("BoxMesh_splf8")
+
+[node name="SouthWallCollision" type="CollisionShape3D" parent="InnerWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 5)
+shape = SubResource("BoxShape3D_sa0r4")
+
+[node name="WallMesh" type="MeshInstance3D" parent="InnerWalls/SouthWallCollision"]
+mesh = SubResource("BoxMesh_splf8")
+
+[node name="NorthRamp" type="StaticBody3D" parent="InnerWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="NorthWestRampCollision" type="CollisionShape3D" parent="InnerWalls/NorthRamp"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, -10, 0, 0)
+shape = SubResource("BoxShape3D_pgxbk")
+
+[node name="RampMesh" type="MeshInstance3D" parent="InnerWalls/NorthRamp/NorthWestRampCollision"]
+mesh = SubResource("BoxMesh_10k5l")
+
+[node name="NorthEastRampCollision" type="CollisionShape3D" parent="InnerWalls/NorthRamp"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 10, 0, 0)
+shape = SubResource("BoxShape3D_pgxbk")
+
+[node name="RampMesh" type="MeshInstance3D" parent="InnerWalls/NorthRamp/NorthEastRampCollision"]
+mesh = SubResource("BoxMesh_10k5l")
+
+[node name="NorthWallCollision" type="CollisionShape3D" parent="InnerWalls/NorthRamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53, 0)
+shape = SubResource("BoxShape3D_xcvxo")
+
+[node name="WallMesh" type="MeshInstance3D" parent="InnerWalls/NorthRamp/NorthWallCollision"]
+mesh = SubResource("BoxMesh_hyp1d")
+
+[node name="NorthCrossWalkCollision" type="CollisionShape3D" parent="InnerWalls/NorthRamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.47, 2.25)
+shape = SubResource("BoxShape3D_gumqg")
+
+[node name="CrossWalkMesh" type="MeshInstance3D" parent="InnerWalls/NorthRamp/NorthCrossWalkCollision"]
+mesh = SubResource("BoxMesh_b1nu2")
+
+[node name="SouthRamp" type="StaticBody3D" parent="InnerWalls"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="SouthEastRampCollision" type="CollisionShape3D" parent="InnerWalls/SouthRamp"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, -10, 0, -4)
+shape = SubResource("BoxShape3D_pgxbk")
+
+[node name="RampMesh" type="MeshInstance3D" parent="InnerWalls/SouthRamp/SouthEastRampCollision"]
+mesh = SubResource("BoxMesh_10k5l")
+
+[node name="SouthWestRampCollision" type="CollisionShape3D" parent="InnerWalls/SouthRamp"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 10, 0, -4)
+shape = SubResource("BoxShape3D_pgxbk")
+
+[node name="RampMesh" type="MeshInstance3D" parent="InnerWalls/SouthRamp/SouthWestRampCollision"]
+mesh = SubResource("BoxMesh_10k5l")
+
+[node name="SouthWallCollision" type="CollisionShape3D" parent="InnerWalls/SouthRamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53, -4)
+shape = SubResource("BoxShape3D_xcvxo")
+
+[node name="WallMesh" type="MeshInstance3D" parent="InnerWalls/SouthRamp/SouthWallCollision"]
+mesh = SubResource("BoxMesh_hyp1d")
+
+[node name="SouthCrossWalkCollision" type="CollisionShape3D" parent="InnerWalls/SouthRamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.47, -1.75)
+shape = SubResource("BoxShape3D_gumqg")
+
+[node name="CrossWalkMesh" type="MeshInstance3D" parent="InnerWalls/SouthRamp/SouthCrossWalkCollision"]
+mesh = SubResource("BoxMesh_b1nu2")
+
+[node name="InnerRoom" type="StaticBody3D" parent="InnerWalls"]
+
+[node name="NorthWallCSG" type="CSGBox3D" parent="InnerWalls/InnerRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.75, -3)
+calculate_tangents = false
+use_collision = true
+size = Vector3(10, 6.5, 1)
+
+[node name="DoorCSG" type="CSGCylinder3D" parent="InnerWalls/InnerRoom/NorthWallCSG"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -2, 0)
+operation = 2
+radius = 2.0
+height = 1.0
+smooth_faces = false
+
+[node name="SouthWallCSG" type="CSGBox3D" parent="InnerWalls/InnerRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.75, 3)
+calculate_tangents = false
+use_collision = true
+size = Vector3(10, 6.5, 1)
+
+[node name="DoorCSG" type="CSGCylinder3D" parent="InnerWalls/InnerRoom/SouthWallCSG"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -2, 0)
+operation = 2
+radius = 2.0
+height = 1.0
+smooth_faces = false
+
+[node name="WestWall" type="CollisionShape3D" parent="InnerWalls/InnerRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 6.75, 0)
+shape = SubResource("BoxShape3D_pflx7")
+
+[node name="WallMesh" type="MeshInstance3D" parent="InnerWalls/InnerRoom/WestWall"]
+mesh = SubResource("BoxMesh_kc44v")
+
+[node name="EastWall" type="CollisionShape3D" parent="InnerWalls/InnerRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 6.75, 0)
+shape = SubResource("BoxShape3D_pflx7")
+
+[node name="WallMesh" type="MeshInstance3D" parent="InnerWalls/InnerRoom/EastWall"]
+mesh = SubResource("BoxMesh_kc44v")
+
+[node name="PillarCollision" type="CollisionShape3D" parent="InnerWalls/InnerRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+visible = false
+shape = SubResource("CylinderShape3D_qat26")
+
+[node name="PillarMesh" type="MeshInstance3D" parent="InnerWalls/InnerRoom/PillarCollision"]
+mesh = SubResource("CylinderMesh_8gujp")
